@@ -10,7 +10,7 @@ start_num = int(input('Unknown APs starting number >> '))
 
 ap_location = 'New York'
 ap_group = 'NY-1221-Group'
-file = f"C:\Gerards Dump\SecureCRT\Scripts\{crt_script}.vbs"
+crt_output_file = f"C:\Gerards Dump\SecureCRT\Scripts\{crt_script}.vbs"
 
 
 
@@ -122,7 +122,7 @@ def crt_commands():
 	for i in ap_dict:
 		new_ap_name = i
 		old_ap_name = ap_dict[i]
-		with open(file, 'a+') as f:
+		with open(crt_output_file, 'a+') as f:
 			f.write(f"""
 \tcrt.Screen.Send "config ap name {old_ap_name} {new_ap_name}" & chr(13)
 \tcrt.Screen.WaitForString "er) >"
@@ -154,7 +154,7 @@ def main():
 
 	## Creates the SecureCRT .vbs file and writes the headers/footers to the file
 	## while also calling crt_commands() to write the CLI commands to the file.
-	with open(file, 'w+') as f:
+	with open(crt_output_file, 'w+') as f:
 		f.write("""#$language = \"VBScript\"
 #$interface = \"1.0\"
 
@@ -165,7 +165,7 @@ Sub Main
 
 	crt_commands()
 
-	with open(file, 'a+') as f:
+	with open(crt_output_file, 'a+') as f:
 		f.write("""
 End Sub
 """)
